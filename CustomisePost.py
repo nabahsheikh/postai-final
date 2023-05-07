@@ -21,11 +21,9 @@ import random
 import json
 from flask import Flask, request,Response, send_from_directory
 import flask
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
-
-
-
+from flask_ngrok import run_with_ngrok
 
 
 app = Flask(__name__)
@@ -34,50 +32,54 @@ upload_folder = os.path.join('static', 'uploads')
 
 app.config['UPLOAD'] = upload_folder
 
-cors = CORS(app,resources={r"/getGeneratedPost": {"origins": "https://b594-101-53-254-207.ngrok-free.app/"}})
+CORS(app,origins='*', allow_headers='*', methods='*',)
+run_with_ngrok(app)
 # @app.before_request
 # def basic_authentication():
 #     if request.method.lower() == 'options':
 #         return Response()
 # cors = CORS(app, resources={r"/foo": {"origins": "http://localhost:port"}})
-@app.route("/getGeneratedPost", methods=['GET'])
+@app.route("/getGeneratedPost", methods=['POST'])
+@cross_origin()
 
 def api():
-    args = request.args
-    genre = args.get("genre")
-    print(args,"genre")
-    per_page = 10
-    page = 1
+    response = request.json
+    print(response,"hello")
+    # print(args)
+    genre = request.args.get("genre")
+    # print(args,"genre")
+    # per_page = 10
+    # page = 1
     image_folder_path = os.getcwd() + "/images"
     if not os.path.isdir(image_folder_path):
         os.mkdir(image_folder_path)
-    parameter = {"query": genre, "per_page": per_page, "page": page}
-    query = urllib.parse.urlencode(parameter)
-    url = f"https://unsplash.com/napi/search/photos?{query}"
+    # parameter = {"query": genre, "per_page": per_page, "page": page, "client_id":"RUrteUlGjuW2D0NbOC9NRTzR1r1dNCCQSz9gS8_qVDU"}
+    # query = urllib.parse.urlencode(parameter)
+    # url = f"https://api.unsplash.com/search/photos?{query}"
 
-    def call_request(url) -> Union[HTTPError, dict]:
-        user_agent = UserAgent()
-        headers = headers={'User-Agent': str(user_agent)}
-        response = requests.get(url, headers=headers)
-        try:
-            response.raise_for_status()
-        except requests.exceptions.HTTPError as e:
-            return e
+    # def call_request(url) -> Union[HTTPError, dict]:
+    #     # user_agent = UserAgent()
+    #     headers = headers={'content-type':'application/json;charset=utf-8','access-control-allow-headers':"*",'access-control-allow-methods':"GET, POST, DELETE, OPTIONS",'access-control-allow-origin':"*",'access-control-expose-headers':"*",'access-control-request-method':"*"}
+    #     response = requests.get(url, headers=headers)
+    #     try:
+    #         response.raise_for_status()
+    #     except requests.exceptions.HTTPError as e:
+    #         return e
 
-        return response.json()
+    #     return response.json()
 
-    response = call_request(url)
+    # response = call_request(url)
     image_list = []
-    if len(response['results']) > 0:
-        for i in range(len(response['results'])):
-            filename = response['results'][i]['urls']['raw'].split('/')[-1].split('?')[0]+".jpg"
+    if len(response['data']['results']) > 0:
+        for i in range(len(response['data']['results'])):
+            filename = response['data']['results'][i]['urls']['raw'].split('/')[-1].split('?')[0]+".jpg"
             folder_path = os.path.join(image_folder_path, genre)
             if not os.path.isdir(folder_path):
                 os.mkdir(folder_path)
             filepath = os.path.join(folder_path, filename)
-            r = requests.get(response['results'][i]['urls']['raw'], allow_redirects=True)
+            r = requests.get(response['data']['results'][i]['urls']['raw'], allow_redirects=True)
             open(filepath.replace("\\", "/"), 'wb').write(r.content)
-            temp = {"Genre": genre, "Image Name": filename, "Image URL": response['results'][i]['urls']['raw']}
+            temp = {"Genre": genre, "Image Name": filename, "Image URL": response['data']['results'][i]['urls']['regular']}
             image_list.append(temp)
         df = pd.DataFrame(image_list)
         print(df)
@@ -230,7 +232,6 @@ def api():
         res.append({"genre": genre,"caption":caption[random.randint(0,len(caption)-1)],"image":i["Image URL"]})
 
     response = flask.jsonify({'data': res})
-    response.headers.add('Access-Control-Allow-Origin', '*')
 
     return response
 
@@ -240,9 +241,11 @@ def file_upload():
         f = request.files['file']
         filename = secure_filename(f.filename)
         f.save(os.path.join(app.config['UPLOAD'], filename))
-        return send_from_directory(app.config['UPLOAD'], filename)
-    # return render_template('render.html')
+        return {"data":{"file":filename}}
+    args = request.args
+    filename = args.get("filename")
+    return send_from_directory(app.config['UPLOAD'], filename)
 
 
 if __name__ == "__main__":
-    app.run(debug=True,threaded=True, port=5000)
+    app.run()
