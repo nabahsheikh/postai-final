@@ -19,7 +19,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import random
 import json
-from flask import Flask, request,Response, send_from_directory
+from flask import Flask, request,Response, send_from_directory, jsonify,send_file
 import flask
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
@@ -32,13 +32,8 @@ upload_folder = os.path.join('static', 'uploads')
 
 app.config['UPLOAD'] = upload_folder
 
-CORS(app,origins='*', allow_headers='*', methods='*',)
+CORS(app)
 run_with_ngrok(app)
-# @app.before_request
-# def basic_authentication():
-#     if request.method.lower() == 'options':
-#         return Response()
-# cors = CORS(app, resources={r"/foo": {"origins": "http://localhost:port"}})
 @app.route("/getGeneratedPost", methods=['POST'])
 @cross_origin()
 
@@ -245,6 +240,137 @@ def file_upload():
     args = request.args
     filename = args.get("filename")
     return send_from_directory(app.config['UPLOAD'], filename)
+
+@app.route('/getImage', methods=['GET'])
+@cross_origin(allow_headers='Content-Type')
+def get_file():
+    args = request.args
+    filename = args.get("filename")
+    # return send_from_directory(app.config['UPLOAD'], filename)
+    response = send_file('static/uploads/'+filename,mimetype='image/jpg')
+    response.headers.add('X-Content-Type-Options', 'nosniff')
+    response.headers.add('Content-Type', 'image/jpg')
+
+    return response
+
+
+@app.route('/scrape_captions', methods=['POST'])
+@cross_origin()
+def captions ():
+    query = request.args.get('fileName')
+    def generate_caption():
+        # Code for generating the caption
+        with app.app_context():
+            filePath = "static/uploads/"+query
+                # fileNameArr = filePath.split("/")
+                # file_name = fileNameArr[len(fileNameArr)-1]
+                # #file_name = filename
+            caption = generate.runModel(filePath)
+            return (caption)
+            # return jsonify({'caption': caption})
+
+    sent=generate_caption()
+
+
+    #----------taking the sentence and extract the keywords --------- 
+
+
+    stop_words = set(stopwords.words('english'))
+
+    total_sentences = tokenize.sent_tokenize(sent)
+    total_sent_len = len(total_sentences)
+    #print(total_sent_len)
+
+    tf_score = {}
+    total_words = sent.split()
+    total_word_length = len(total_words)
+
+    for each_word in total_words:
+        each_word = each_word.replace('.','')
+        if each_word not in stop_words:
+            if each_word in tf_score:
+                tf_score[each_word] += 1
+            else:
+                tf_score[each_word] = 1
+
+    # Dividing by total_word_length for each dictionary element
+    tf_score.update((x, y/int(total_word_length)) for x, y in tf_score.items())
+    #print(tf_score)
+
+
+    def check_sent(word, sentences): 
+        final = [all([w in x for w in word]) for x in sentences] 
+        sent_len = [sentences[i] for i in range(0, len(final)) if final[i]]
+        return int(len(sent_len))
+
+    idf_score = {}
+    for each_word in total_words:
+        each_word = each_word.replace('.','')
+        if each_word not in stop_words:
+            if each_word in idf_score:
+                idf_score[each_word] = check_sent(each_word, total_sentences)
+            else:
+                idf_score[each_word] = 1
+
+
+    tf_idf_score = {key: tf_score[key] * idf_score.get(key, 0) for key in tf_score.keys()}
+
+    def get_top_n(dict_elem, n):
+        result = dict(sorted(dict_elem.items(), key = itemgetter(1), reverse = True)[:n]) 
+        return list(result.keys())
+
+    top_words = get_top_n(tf_idf_score, 5)
+        
+
+    def scrape_captions():
+        with app.app_context():
+        # Code for scraping captions
+
+            random_word = random.choice(top_words)
+            #print(random_word)
+
+            # Configure Chrome to run in headless mode
+            options = Options()
+            options.headless = True
+            driver = webdriver.Chrome(options=options)
+
+            # Load the search page
+            driver.get("https://captionplus.app/caption-categories")
+            time.sleep(1)
+            # Find the search input field and enter the keyword
+            search_input = driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div/div/div/div/div/div[1]/div/div/form/div/input')
+            search_input.send_keys(random_word)
+        
+
+            # Click on the search button
+            search_button = driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div/div/div/div/div/div[1]/div/div/form/div/a')
+            search_button.click()
+            time.sleep(1)
+        # Extract the captions
+            captions = []
+            for i in range(1, 6):
+                try:
+                    div_element = driver.find_element(By.XPATH, f'(//p[@class="description mb-0 font-weight-400"])[{i}]')
+                    div_text = div_element.text.strip()
+                    captions.append(div_text)
+                except:
+                    break
+            driver.quit()
+            
+            # If there are less than 5 captions, store them and return early
+            if len(captions) < 5:
+                with open('captions.json', 'r') as f:
+                    data = json.load(f)
+
+                # Add the new data to the existing data
+                data[random_word] = captions
+
+                # Write the updated data back to the JSON file
+                with open('captions.json', 'w') as f:
+                    json.dump(data, f, indent=4, separators=(',', ': '))
+            
+            return jsonify({"Captions": captions,"Description":sent})
+    return scrape_captions()
 
 
 if __name__ == "__main__":
