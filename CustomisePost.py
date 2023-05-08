@@ -369,7 +369,7 @@ def captions ():
                 with open('captions.json', 'w') as f:
                     json.dump(data, f, indent=4, separators=(',', ': '))
             
-            return jsonify({"Captions": captions,"Description":sent})
+            return jsonify({"Captions": captions,"Description":sent, "genre":random_word})
     return scrape_captions()
 
 
