@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+html,
+body {
+  scroll-behavior: smooth;
+  min-height: 95%;
+  margin: 0;
+  background-color: #eaeaea !important;
+  font-family: "Poppins" !important;
+}
+*,
+input,
+button {
+  outline: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+a {
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+}
+
+.loader-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  justify-content: center;
+}
+.container {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  max-width: 100%;
+}
+@media (max-width: 960px) {
+  body {
+    background-color: #fff !important;
+  }
+}
+@media (min-width: 476px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media (min-width: 476px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 720px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 960px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1140px;
+    max-width: 100%;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    width: 1340px;
+    max-width: 100%;
+  }
+}
+iframe {
+  display: none !important;
+}
+.ant-form-item-with-help .ant-form-item-explain {
+  font-size: 12px;
+}
+.__react_modal_image__modal_container {
+  z-index: 9999999999 !important;
+}
+.post-image {
+  max-height: 250px;
+  width: 100%;
+}

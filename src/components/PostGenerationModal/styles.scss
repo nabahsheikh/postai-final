@@ -1,0 +1,31 @@
+@use "./../../master.scss";
+
+.post-generation-modal {
+  .ant-modal-title {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "Poppins" !important;
+  }
+  .ant-modal-header {
+    border-radius: 15px 15px 0px 0px;
+  }
+  .ant-modal-content {
+    border-radius: 15px;
+  }
+  border-radius: 20px !important;
+  .close-icon {
+    font-size: 25px;
+    color: #3992ee;
+  }
+  .posts-btn {
+    width: 100%;
+    background-color: #3992ee;
+    padding: 25px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-family: "Poppins" !important;
+    font-size: 17px;
+  }
+}

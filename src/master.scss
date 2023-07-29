@@ -1,0 +1,113 @@
+$theme-color: #1862f7;
+$theme2-color: #2098f2;
+
+.theme-text {
+  color: $theme-color;
+}
+
+.themelight-text {
+  color: $theme2-color;
+}
+
+.no-data-available {
+  color: #fff;
+  text-align: center;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+
+.form-input {
+  background: #f8f9fb !important;
+  border-color: #f8f9fb !important;
+  border-radius: 10px !important;
+  padding: 9px 15px !important;
+  min-height: auto !important;
+  margin-top: 5px !important;
+  width: 100% !important;
+  font-size: 15px !important;
+  color: rgb(2, 46, 97) !important;
+
+  input {
+    background: transparent !important;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px #f8f9fb inset !important;
+      -webkit-box-shadow: 0 0 0 30px #f8f9fb inset !important;
+    }
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    box-shadow: 0 0 0 30px #f8f9fb inset !important;
+    -webkit-box-shadow: 0 0 0 30px #f8f9fb inset !important;
+  }
+
+  &::placeholder {
+    color: rgba(2, 46, 97, 0.5) !important;
+  }
+
+  &:hover,
+  &:focus,
+  &.ant-input-affix-wrapper-focused {
+    box-shadow: unset !important;
+    border-color: #22394e !important;
+  }
+
+  &.ant-input-status-error,
+  &.ant-picker-status-error,
+  &.ant-input-affix-wrapper-status-error {
+    border-color: #ff4d4f !important;
+  }
+
+  @media screen and (max-width: 763px) {
+    font-size: 13px !important;
+  }
+}
+
+.ant-form-item {
+  margin-bottom: 15px !important;
+}
+
+.input-err {
+  margin-top: 3px;
+  color: #ff4d4f;
+  font-size: 12px;
+}
+
+
+.form-select {
+  border-radius: 10px !important;
+  min-height: auto !important;
+  margin-top: 5px !important;
+
+  .ant-select-selector {
+    border-radius: 10px !important;
+    font-weight: 400 !important;
+    background: #f8f9fb !important;
+    border-color: #f8f9fb !important;
+    padding: 6px 15px !important;
+    height: auto !important;
+    color: rgb(2, 46, 97) !important;
+
+    &::placeholder,
+    .ant-select-selection-placeholder {
+      color: rgba(2, 46, 97, 0.5) !important;
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: unset !important;
+      border-color: #22394e !important;
+    }
+
+    &.ant-input-status-error {
+      border-color: #ff4d4f !important;
+    }
+  }
+}

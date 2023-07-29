@@ -1,0 +1,58 @@
+.sidebar-wrapper {
+  width: 25%;
+  // margin-top: 70px;
+  bottom: 2%;
+  position: fixed;
+  left: 0;
+  margin-left: 15px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  height: 85vh;
+  overflow-y: scroll;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 10px 5px 10px;
+  @media only screen and (max-width: 960px) {
+    display: none;
+  }
+  @media only screen and (max-width: 1130px) {
+    margin-left: 8px;
+  }
+  .sidebar-options-wrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 0 20px;
+    gap: 10px;
+    a {
+      color: #909090;
+    }
+  }
+  .copyright-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    justify-self: flex-end;
+    gap: 5px;
+    margin-top: 30px;
+    p {
+      margin: 0;
+      color: #000;
+    }
+    .copyrights-logo {
+      width: 60px;
+      margin-bottom: 5px;
+    }
+  }
+}
+.sidebar-wrapper::-webkit-scrollbar {
+  display: none;
+}

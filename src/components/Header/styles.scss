@@ -1,0 +1,102 @@
+@use "../../master.scss";
+
+.main-header {
+  width: 100%;
+  padding: 15px 40px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  @media only screen and (max-width: 960px) {
+    background: #3992ee;
+    padding: 15px 20px;
+    border-bottom-right-radius: 30px;
+  }
+  .header-logo {
+    @media only screen and (min-width: 960px) {
+      cursor: pointer;
+      width: 170px;
+    }
+    @media only screen and (max-width: 960px) {
+      display: none;
+    }
+  }
+  .header-logo-resp {
+    @media only screen and (max-width: 960px) {
+      cursor: pointer;
+      width: 130px;
+    }
+    @media only screen and (min-width: 960px) {
+      display: none;
+    }
+  }
+  .menu-icon {
+    @media only screen and (max-width: 960px) {
+      cursor: pointer;
+    }
+    @media only screen and (min-width: 960px) {
+      display: none;
+    }
+  }
+  .header-account {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: max-content;
+    @media only screen and (max-width: 960px) {
+      display: none;
+    }
+    .header-options {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      .header-icons {
+        font-size: 25px;
+        color: #3992ee;
+        cursor: pointer;
+      }
+      .header-icons:last-of-type {
+        border-left: 1px solid #010101;
+        padding-left: 10px;
+      }
+    }
+    .account-popover {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    img {
+      cursor: pointer;
+      width: 45px;
+      border-radius: 100px;
+    }
+    p {
+      margin: 0;
+      font-family: "Poppins" !important;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      img {
+        width: 16px;
+      }
+    }
+  }
+  .popover-content {
+    .popover-options {
+      padding: 5px 25px 5px 5px;
+      margin: 0;
+      cursor: pointer;
+    }
+    .popover-options:first-of-type {
+      border-bottom: 1px solid rgba(36, 61, 76, 0.2);
+    }
+  }
+  .ant-popover-inner {
+    border-radius: 10px !important;
+  }
+}

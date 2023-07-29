@@ -1,0 +1,120 @@
+@use "./../../master.scss";
+
+.caption-generation-modal {
+  .ant-modal-title {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "Poppins" !important;
+  }
+  .ant-modal-header {
+    border-radius: 15px 15px 0px 0px;
+  }
+  .ant-modal-content {
+    border-radius: 15px;
+  }
+  border-radius: 20px !important;
+  .close-icon {
+    font-size: 25px;
+    color: #3992ee;
+  }
+  .posts-btn {
+    width: 100%;
+    background-color: #3992ee;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-family: "Poppins" !important;
+    font-size: 17px;
+  }
+  .image-dragger-wrapper {
+    background-color: #fff;
+    padding: 13px 14px;
+    border: 1px solid rgba(36, 61, 76, 0.2);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .image-dragger-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+  .image-dragger {
+    border: 1px dashed #3992ee !important;
+    border-radius: 10px !important;
+    p {
+      color: #000 !important;
+      font-weight: 500;
+      font-size: 15px !important;
+    }
+  }
+  .image-dragger:hover {
+    border-color: #3992ee !important;
+  }
+  .ant-upload-list-picture-card-container {
+    margin: 8px 8px 8px 0;
+  }
+  .ant-upload-list {
+    overflow: visible;
+  }
+  .upload-doc-box {
+    position: relative;
+    background: #f8fafb;
+    border: 1px dashed rgba(28, 43, 72, 0.5);
+    border-radius: 10px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .drop_area {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 99;
+    }
+
+    .content {
+      text-align: center;
+      width: 120px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      p {
+        margin: 0;
+        margin-top: 5px;
+        color: #1c2b48;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 18px;
+        opacity: 0.5;
+      }
+    }
+
+    &.active {
+      border-color: #3992ee;
+
+      .content {
+        width: 100%;
+
+        svg path {
+          fill: #3992ee;
+          opacity: 1;
+        }
+
+        p {
+          color: #3992ee;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

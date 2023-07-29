@@ -1,0 +1,106 @@
+@use "./../../master.scss";
+
+.page-select-modal {
+  user-select: none;
+  .ant-modal-title {
+    font-weight: 600;
+    font-size: 20px;
+    font-family: "Poppins" !important;
+  }
+  .ant-modal-header {
+    border-radius: 15px 15px 0px 0px;
+  }
+  //   .ant-modal-body {
+  //     display: flex;
+  //     align-items: center;
+  //     justify-content: center;
+  //     flex-direction: column;
+  //   }
+  .ant-modal-content {
+    border-radius: 15px;
+  }
+  border-radius: 20px !important;
+  .close-icon {
+    font-size: 25px;
+    color: #3992ee;
+  }
+  .posts-btn {
+    width: 100%;
+    background-color: #3992ee;
+    padding: 25px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-family: "Poppins" !important;
+    font-size: 17px;
+  }
+  .modal-content {
+    max-height: 400px;
+    overflow: auto;
+    .page-card-wrapper {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 10px;
+      gap: 15px;
+      border: 1px solid rgba(28, 43, 72, 0.1);
+      border-radius: 12px;
+      p {
+        margin: 0;
+        font-weight: 500;
+        font-size: 16px;
+      }
+      .category {
+        opacity: 0.5;
+        font-size: 12px;
+      }
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+      }
+    }
+    .selected-page {
+      border-color: #3992ee;
+    }
+  }
+  /* width */
+  .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Track */
+  .modal-content::-webkit-scrollbar-track {
+    //   box-shadow: inset 0 0 3px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  .modal-content::-webkit-scrollbar-thumb {
+    background: rgb(169, 169, 169);
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  .modal-content::-webkit-scrollbar-thumb:hover {
+    background: rgb(144, 144, 144);
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    margin-top: 10px;
+    .footer-btn {
+      width: max-content;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+    }
+  }
+}

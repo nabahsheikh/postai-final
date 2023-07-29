@@ -1,0 +1,41 @@
+.post-card {
+  border: 1px solid rgba(36, 61, 76, 0.3);
+  padding: 10px;
+  border-radius: 12px;
+  height: 100%;
+  cursor: pointer;
+
+  .hashtag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3992ee;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 15px;
+    p {
+      margin: 0;
+      color: #fff;
+      font-weight: 500;
+      font-family: "Poppins" !important;
+    }
+  }
+  .caption {
+    font-family: "Poppins" !important;
+    font-weight: 400;
+    color: #000;
+    max-width: 90%;
+    text-overflow: ellipsis;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .post-card-img {
+    width: 100%;
+    height: 200px;
+    border-radius: 25px;
+  }
+}
+.post-card-selected {
+  border: 2px solid #3992ee;
+}

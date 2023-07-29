@@ -1,0 +1,99 @@
+.generated-captions-wrapper {
+  .generated-captions-content-wrapper {
+    width: 71.5%;
+    // margin-top: 70px;
+    bottom: 2%;
+    position: fixed;
+    right: 0;
+    margin-right: 15px;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    height: 85vh;
+    overflow-y: scroll;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    @media only screen and (max-width: 960px) {
+      width: 100%;
+      margin: 0;
+      bottom: 0%;
+      top: 7%;
+      height: 92vh;
+    }
+
+    .generated-title {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      gap: 10px;
+      h4 {
+        font-size: 30px;
+        font-weight: bold;
+        margin: 0;
+      }
+      img {
+        cursor: pointer;
+      }
+    }
+  }
+  .caption-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    @media only screen and (max-width: 960px) {
+      flex-direction: column;
+    }
+
+    h3 {
+      font-weight: 700;
+      font-size: 24px;
+      font-family: "Poppins" !important;
+    }
+    .captions-image {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      @media only screen and (max-width: 960px) {
+        width: 100%;
+      }
+    }
+    .captions-wrapper {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      @media only screen and (max-width: 960px) {
+        width: 100%;
+      }
+      .caption-item {
+        border: 1px solid rgba(36, 61, 76, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        p {
+          margin: 0;
+        }
+      }
+      .caption-item-selected {
+        border: 2px solid #3992ee;
+      }
+    }
+  }
+  .loader-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100% !important;
+    width: 100%;
+  }
+}
+
+.generated-captions-content-wrapper::-webkit-scrollbar {
+  display: none;
+}

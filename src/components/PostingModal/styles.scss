@@ -1,0 +1,72 @@
+@use "./../../master.scss";
+
+.posting-modal {
+  .ant-modal-header {
+    border-radius: 15px 15px 0px 0px;
+  }
+  .ant-modal-content {
+    border-radius: 15px;
+  }
+  border-radius: 20px !important;
+  .close-icon {
+    font-size: 25px;
+    color: #3992ee;
+  }
+  .posting-btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 15px;
+    .posting-btn {
+      background: linear-gradient(152.51deg, #1877f2 31.79%, #3ba0a6 87.05%);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-family: "Poppins" !important;
+      height: 55px;
+      width: 55px;
+      padding: 20px 20px !important;
+      border-radius: 100px;
+    }
+    .posting-icons {
+      font-size: 30px;
+      color: #fff;
+    }
+  }
+  .hashtag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3992ee;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 15px;
+    p {
+      margin: 0;
+      color: #fff;
+      font-weight: 500;
+      font-family: "Poppins" !important;
+    }
+  }
+  .caption {
+    font-family: "Poppins" !important;
+    font-weight: 400;
+    color: #000;
+    margin: 0;
+  }
+  .post-img {
+    width: 100% !important;
+    max-height: 250px !important;
+  }
+  .ant-input[disabled] {
+    border: none;
+    display: flex;
+    overflow: visible;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    min-height: max-content;
+  }
+}

@@ -1,0 +1,114 @@
+.content-wrapper {
+  width: 71.5%;
+  bottom: 2%;
+  position: fixed;
+  right: 0;
+  margin-right: 15px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  height: 85vh;
+  overflow-y: scroll;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  @media only screen and (max-width: 960px) {
+    width: 100%;
+    margin: 0;
+    bottom: 0%;
+    top: 7%;
+    height: 94vh;
+    padding: 20px 10px;
+  }
+  .dashboard-resp-view {
+    display: flex;
+    width: 100%;
+    @media only screen and (max-width: 960px) {
+      display: flex;
+    }
+  }
+  .banner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #173f56;
+    padding: 10px 20px;
+    border-radius: 20px;
+    p {
+      color: #fff;
+      margin: 0;
+      font-weight: 500;
+      font-size: 1.5em;
+      font-family: "Poppins" !important;
+    }
+    .resp-text {
+      color: #fff;
+      margin: 0;
+      font-weight: 500;
+      font-size: 1em;
+      font-family: "Poppins" !important;
+      @media only screen and (max-width: 600px) {
+        display: none;
+      }
+    }
+  }
+  .options-img {
+    width: 150px;
+  }
+  .option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 100%;
+    padding: 20px 0;
+    height: 100%;
+    cursor: pointer;
+    .img {
+      max-width: 145px !important;
+    }
+    p {
+      color: #fff;
+      margin: 0;
+      font-weight: 500;
+      font-size: 1.5em;
+      font-family: "Poppins" !important;
+      text-align: center;
+    }
+  }
+  .two-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    height: max-content;
+  }
+  .lone-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .one {
+    background-color: #217cf2;
+  }
+  .two {
+    background-color: #29537a;
+  }
+  .three {
+    background-color: #3a88b5;
+  }
+  .four {
+    background-color: #6caace;
+  }
+  .option-four-img {
+    max-width: 150px;
+  }
+}
+
+.content-wrapper::-webkit-scrollbar {
+  display: none;
+}

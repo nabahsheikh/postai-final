@@ -1,0 +1,50 @@
+@use "../../master.scss";
+
+.modal {
+    border-radius: 10px;
+    overflow: hidden;
+
+    .ant-modal-title {
+        color: master.$theme-color;
+    }
+
+    .title {
+        font-size: 14px;
+        color: #000;
+        margin-bottom: 2px;
+        display: block;
+    }
+
+    .modal-footer {
+        text-align: right;
+        margin-top: 20px;
+
+        button {
+            display: inline-block;
+            margin: 5px;
+            background: master.$theme-color;
+            color: #fff;
+            font-size: 13px;
+            padding: 6px 25px;
+            border-radius: 5px;
+            border: 1px solid master.$theme-color;
+            cursor: pointer;
+            transition: 0.4s all;
+
+            &:hover {
+                background: master.$theme2-color;
+                border: 1px solid master.$theme2-color;
+            }
+
+            &.close {
+                background: transparent;
+                border: 1px solid master.$theme-color;
+                color: master.$theme-color;
+
+                &:hover {
+                    border: 1px solid master.$theme-color;
+                }
+            }
+        }
+    }
+}
