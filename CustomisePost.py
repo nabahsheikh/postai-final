@@ -23,23 +23,45 @@ from flask import Flask, request,Response, send_from_directory, jsonify,send_fil
 import flask
 from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
-from flask_ngrok import run_with_ngrok
+# from flask_ngrok import run_with_ngrok
+from flask_mysqldb import MySQL
 
 
 app = Flask(__name__)
+
+app.config['MYSQL_HOST'] = 'sql6.freesqldatabase.com'
+
+app.config['MYSQL_USER'] = 'sql6635945'
+app.config['MYSQL_PASSWORD'] = 'K9zDhpC6gu'
+app.config['MYSQL_DB'] = 'sql6635945'
+ 
+mysql = MySQL(app)
 
 upload_folder = os.path.join('static', 'uploads')
 
 app.config['UPLOAD'] = upload_folder
 
 CORS(app)
-run_with_ngrok(app)
+# run_with_ngrok(app)
+
+@app.route("/savePost", methods=['POST'])
+@cross_origin()
+
+def savePost():
+    response = request.json
+    print(response,"res")
+    cursor = mysql.connection.cursor()
+    cursor.execute(''' INSERT INTO Posts VALUES(%s,%s,%s,%s,%s,%s)''',(response['id'],response['caption'],response['image'],response['postDate'],response['genre'],response['isScheduled']))
+    mysql.connection.commit()
+    cursor.close()
+    return "Post saved successfully"
+
+
 @app.route("/getGeneratedPost", methods=['POST'])
 @cross_origin()
 
 def api():
     response = request.json
-    print(response,"hello")
     # print(args)
     genre = request.args.get("genre")
     # print(args,"genre")
@@ -173,16 +195,17 @@ def api():
 
         # Load the search page
         driver.get("https://captionplus.app/caption-categories")
-        time.sleep(1)
+        time.sleep(10)
         # Find the search input field and enter the keyword
         search_input = driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div/div/div/div/div/div[1]/div/div/form/div/input')
+        
         search_input.send_keys(random_word)
     
 
         # Click on the search button
         search_button = driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div/div/div/div/div/div[1]/div/div/form/div/a')
         search_button.click()
-        time.sleep(1)
+        time.sleep(10)
     # Extract the captions
         captions = []
         for i in range(1, 10):
@@ -231,6 +254,7 @@ def api():
     return response
 
 @app.route('/uploadImage', methods=['GET', 'POST'])
+@cross_origin()
 def file_upload():
     if request.method == 'POST':
         f = request.files['file']
@@ -336,7 +360,7 @@ def captions ():
 
             # Load the search page
             driver.get("https://captionplus.app/caption-categories")
-            time.sleep(1)
+            time.sleep(10)
             # Find the search input field and enter the keyword
             search_input = driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div/div/div/div/div/div[1]/div/div/form/div/input')
             search_input.send_keys(random_word)
@@ -345,7 +369,7 @@ def captions ():
             # Click on the search button
             search_button = driver.find_element(By.XPATH, '//*[@id="__layout"]/div/div/div/div/div/div/div[1]/div/div/form/div/a')
             search_button.click()
-            time.sleep(1)
+            time.sleep(10)
         # Extract the captions
             captions = []
             for i in range(1, 6):
