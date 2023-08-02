@@ -51,7 +51,7 @@ def savePost():
     response = request.json
     print(response,"res")
     cursor = mysql.connection.cursor()
-    cursor.execute(''' INSERT INTO Posts VALUES(%s,%s,%s,%s,%s,%s)''',(response['id'],response['caption'],response['image'],response['postDate'],response['genre'],response['isScheduled']))
+    cursor.execute(''' INSERT INTO Posts VALUES(%s,%s,%s,%s,%s,%s,%s)''',(response['id'],response['caption'],response['image'],response['postDate'],response['genre'],response['isScheduled'],response['userid']))
     mysql.connection.commit()
     cursor.close()
     return "Post saved successfully"
@@ -62,6 +62,13 @@ def savePost():
 
 def api():
     response = request.json
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT image FROM Posts WHERE userid = %s",(response['userid'],))
+    image = list(cursor.fetchall())
+    mysql.connection.commit()
+    cursor.close()
+    list_image = ["".join(t) for t in image]
+    print(list_image)
     # print(args)
     genre = request.args.get("genre")
     # print(args,"genre")
@@ -87,16 +94,18 @@ def api():
 
     # response = call_request(url)
     image_list = []
-    if len(response['data']['results']) > 0:
-        for i in range(len(response['data']['results'])):
-            filename = response['data']['results'][i]['urls']['raw'].split('/')[-1].split('?')[0]+".jpg"
+    image_data = response['response']['data']
+    final = [d for d in image_data if d['urls']['regular'] not in list_image]
+    if len(final) > 0:
+        for i in range(5):
+            filename = final[i]['urls']['raw'].split('/')[-1].split('?')[0]+".jpg"
             folder_path = os.path.join(image_folder_path, genre)
             if not os.path.isdir(folder_path):
                 os.mkdir(folder_path)
             filepath = os.path.join(folder_path, filename)
-            r = requests.get(response['data']['results'][i]['urls']['raw'], allow_redirects=True)
+            r = requests.get(final[i]['urls']['raw'], allow_redirects=True)
             open(filepath.replace("\\", "/"), 'wb').write(r.content)
-            temp = {"Genre": genre, "Image Name": filename, "Image URL": response['data']['results'][i]['urls']['regular']}
+            temp = {"Genre": genre, "Image Name": filename, "Image URL": final[i]['urls']['regular']}
             image_list.append(temp)
         df = pd.DataFrame(image_list)
         print(df)
@@ -398,4 +407,4 @@ def captions ():
 
 
 if __name__ == "__main__":
-    app.run(debug = False,host='0.0.0.0')
+    app.run()
